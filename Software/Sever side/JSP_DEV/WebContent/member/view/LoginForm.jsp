@@ -1,14 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <html>
 <head>
 	<%
-		// ÀÎÄÚµù Ã³¸®
-		request.setCharacterEncoding("euc-kr"); 
+		// ì¸ì½”ë”© ì²˜ë¦¬
+		request.setCharacterEncoding("utf-8"); 
 	%>
-	<title>·Î±×ÀÎ È­¸é</title>
+	<title>ë¡œê·¸ì¸ í™”ë©´</title>
 	
-	<!-- css ÆÄÀÏ ºĞ¸® -->
+	<!-- css íŒŒì¼ ë¶„ë¦¬ -->
+	
 	<link href='../../css/join_style.css' rel='stylesheet' style='text/css'/>
 	
 	<script type="text/javascript">
@@ -16,15 +17,23 @@
 		function checkValue()
 		{
 			inputForm = eval("document.loginInfo");
-			if(!inputForm.id.value)
+			if(!inputForm.mem_id.value)
 			{
-				alert("¹æ¹®ÀÚ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä");	
-				inputForm.id.focus();
+				alert("ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”");	
+				inputForm.mem_id.focus();
 				return false;
 			}
-			
+			if(!inputForm.mem_pw.value)
+			{
+				alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”");	
+				inputForm.mem_pw.focus();
+				return false;
+			}
 		}
-	
+		
+		function goJoinForm() {
+			location.href = "SignUp.jsp";
+		}
 	</script>
 
 </head>
@@ -32,33 +41,35 @@
 	<div id="wrap">
 		<form name="loginInfo" method="post" action="../pro/LoginPro.jsp" 
 				onsubmit="return checkValue()">
-		
-
-			
 			<table>
 				<tr>
-					<td bgcolor="skyblue">¹æ¹®ÀÚ ¹øÈ£</td>
-					<td><input type="text" name="id" maxlength="50"></td>
+					<td bgcolor="lightblue">ID</td>
+					<td><input type="text" name="mem_id" maxlength="50"></td>
+				</tr>
+				<tr>
+					<td bgcolor="lightblue">PW</td>
+					<td><input type="text" name="mem_pw" maxlength="50"></td>
 				</tr>
 			</table>
 			<br>
-			<input type="submit" value="·Î±×ÀÎ"/>
+			<input type="submit" value="ë¡œê·¸ì¸"/>
+			<input type="button" value="íšŒì›ê°€ì…" onclick="goJoinForm()"/>
 		</form>
 		
 		<% 
-			// ·Î±×ÀÎÀÌ Àß¸øµÉ °æ¿ì È­¸é¿¡ ¸Ş½ÃÁö Ç¥½Ã
-			// LoginPro.jsp¿¡¼­ ·Î±×ÀÎ Ã³¸® °á°ú¿¡ µû¸¥ ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+			
+			// LoginPro.jspì—ì„œ ë¡œê·¸ì¸ ì²˜ë¦¬ ê²°ê³¼ì— ë”°ë¥¸ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
 			String msg=request.getParameter("msg");
 			
 			if(msg!=null && msg.equals("-1")) //request.getAttribute("error") == "-1"
 			{	
 				out.println("<br>");
-				out.println("<font color='red' size='5'>¾ÆÀÌµğ¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä.</font>");
+				out.println("<font color='red' size='5'>ì•„ì´ë””ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.</font>");
 			}
 			if(msg!=null && msg.equals("0"))
 			{
 				out.println("<br>");
-				out.println("<font color='red' size='5'>ÀÌ ±â±â·Î ·Î±×ÀÎÇÒ¼ö ¾ø½À´Ï´Ù.</font>");
+				out.println("<font color='red' size='5'>ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.</font>");
 			}
 		%>	
 	</div>	

@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,
+		minimum-scale= 1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+<link href="jquery-mobile/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet" type="text/css">
+<script src="jquery-mobile/jquery-1.11.1.min.js"></script>
+<script src="jquery-mobile/jquery.mobile-1.3.0.min.js"></script>
+<script type="text/javascript" src="./js/login_ajax.js"></script>
+
+	
+	<script src = "http://maps.google.com/maps/api/js?sensor=true&language=ko" type="text/javascript"></script>
+	<script src = "ui/min/jquery.ui.map.full.min.js" type ="text/javascript"></script>
+	<script src = "ui/jquery.ui.map.extensions.js" type="text/javascript"></script>
+
+	<script type ="text/javascript">
+	$(document).ready(function(){
+		var StartLatLng= new google.maps.LatLng(37.676381, 126.806400);
+	$("#map_canvas").gmap({"center":StartLatLng,"zoom":19});
+/*		$("#current_location").click(fuction(){
+			$("#map_canvas").gmap("getCurrentPosition", function(position, status){
+			if(status==="OK"){
+				var latlng = new google.mapsLatLng(
+				position.coords.latitude., position.coords.longitude);
+				var markerBlue = "http://www.google.com/intl/en_us/mapfiles/ms/icons/blue-dot.png";
+				$("#map_canvas").gmap("get", "map").panTo(latlng);
+				$("#map_canvas").gmap("addMarker",{"position":latlng,"icon" : markerBlue});
+			}else {alert("현재위치를 찾을 수 없습니다.");}
+		});
+	});
+*/
+		var beacon = "image/lock.png";
+		$("#map_canvas").gmap("addMarker", {"position": StartLatLng}).click(function() {
+		$("#map_canvas").gmap("openInfoWindow", {"content": "Start point"}, this);
+		});
+		var latlng1 = new google.maps.LatLng(37.676772, 126.806051);
+		$("#map_canvas").gmap("addMarker",{"position":latlng1,"icon": beacon});
+		var latlng2 = new google.maps.LatLng(37.676618, 126.806588);
+		$("#map_canvas").gmap("addMarker",{"position":latlng2,"icon": beacon});
+		var latlng3 = new google.maps.LatLng(37.676514, 126.806229);
+		$("#map_canvas").gmap("addMarker",{"position":latlng3,"icon": beacon});
+		var latlng4 = new google.maps.LatLng(37.676240, 126.806090);
+		$("#map_canvas").gmap("addMarker",{"position":latlng4,"icon": beacon});
+		var latlng5 = new google.maps.LatLng(37.676132, 126.806621);
+		$("#map_canvas").gmap("addMarker",{"position":latlng5,"icon": beacon});
+	});
+									 
+		
+	</script>
+	<style type="text/css">
+		.map_style{
+			padding : 0px;
+			height : 100%;
+			width : 100%;
+		}
+		.cont{
+		margin-top:50px;
+	}
+		div.container {
+			margin:30px auto;
+		
+			width:300px;
+			box-sizing: border-box;
+			padding :10px 30px;
+			padding-bottom: 80px;
+			box-shadow: 0px 1px 5px 0 #ccc;
+		}
+		#logo {
+			width:120px;
+			height:120px;
+			text-indent:-9999px;
+			background-image: url(img/logo1.png);
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			margin-top: 20px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: #ffffff;
+			background-color: rgba(255,255,255,0.0);			
+		}
+
+		#btn{
+			position : relative;
+			background-color: #0AC986;
+			color: #fff;
+			width: 200px;
+			height:100%;
+		}
+		#form{
+			background-image: url(img/background.jpg);
+			background
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+		#fform{
+			background-color:aqua;
+			border:0px;
+			background-repeat: no-repeat;
+		}
+		.ui-page{
+			
+		}
+		.login-footer{
+			text-align:center;
+			background-color:2e78bf;
+			opacity(0.0);
+		}
+		.textbox{position:relative; width:200px; margin-top:5px;}
+		.textbox label{
+			position: absolute;
+			top: 1px;
+			left: 1px;
+			padding: .8em .5em;
+			color:#030303;
+			cursor: text;
+		}
+		.textbox input[type="text"]{
+			width: 100%;
+			height: 38px;
+			line-height : normal;
+			padding: .8em .5em;
+			font-family: inherit;
+			border: 1px solid #999;
+			border-radius: 0;
+			outline-style: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			font-size:14px;
+		}
+		.error-msg{
+			font-size: 16px;
+			font-family: sans-serif,Arial;
+			color : red;
+			margin-top: 50px;
+			display : none;
+		}
+		.error{
+			position : relative;
+			animation : shake 0.2s;
+		}
+		@keyframes shake{
+			0%, 100%{
+				Left:0px;
+			}
+			20%, 80%{
+				Left:-15px;
+			}
+			40%, 60%{
+				Left:15px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+<div data-role="page" id="form">
+<div class ="container" >
+ <div data-role="header" id="logo"></div>
+
+  <div data-role="content" id="login">
+    <center>
+     <div data-role="fieldcontain">
+      <div class="textbox" style="filter:alpha(opacity=10); opacity:0.5;-moz-opacity:0.5;">
+      <input type="text" name="textinput" id="textinput" placeholder="방문자번호를 입력해 주세요">
+	</div></div></center>
+	  <center><a href="#search_page" data-role="button" data-inline="true" id="btn">Login</a></center>
+
+    </div>
+  </div>
+  <div data-role="footer" class="login-footer" data-position="fixed">
+ 	 <div data-role="fieldcontain" >
+ 	 문의전화 : 02)000-0000  
+	 </div>
+  </div>
+  </div>
+</div>
+<div data-role="page" id="search_page">
+  <div data-role="header"  data-position="fixed">
+    <h1>길 찾기</h1>
+  </div>
+<div data-role="content" data-theme="a" class="cont">
+  	<div class="content-primary">
+  	 <ul data-role="listview" data-filter="true" data-filter-placeholder="Search room..." data-filter-theme="a" data-inset="true">
+  	 	<li><a href="#" class="ui-icon-check ui-btn-icon-right">Room 103</a></li>
+  		<li><a href="#">Room 301</a></li>
+    	<li><a href="#" class="ui-icon-check ui-btn-icon-right">Room 302</a></li>
+    	<li><a href="#">Room 303</a></li>
+    	<li><a href="#" class="ui-icon-check ui-btn-icon-right">Room 304</a></li>
+     </ul>
+  	</div>
+  	<div data-role="fieldcontain">
+	  <center><a href="#" data-role="button" data-inline="true">목적지 등록</a></center>
+    </div>
+</div>
+<div data-role="footer" data-theme="a" data-position="fixed">
+    <div data-role="navbar">
+    	<ul>
+    		<li><a href="#search_page" class="ui-btn ui-icon-home ui-btn-icon-top ui-btn-active ui-state-persist">길찾기</a></li>
+    		<li><a href="#otp_page" class="ui-btn ui-icon-search ui-btn-icon-top">OTP</a></li>
+    		<li><a href="#map_page" class="ui-btn ui-icon-info ui-btn-icon-top">지도</a></li>
+    		<li><a href="#setting_page"  class="ui-btn ui-icon-gear ui-btn-icon-top">setting</a></li>
+    	</ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="otp_page">
+  <div data-role="header">
+    <h1>OTP PAGE</h1>
+  </div>
+  <div data-role="content">내용</div>
+  <div data-role="footer" data-theme="a" data-position="fixed">
+    <div data-role="navbar">
+    	<ul>
+    		<li><a href="#search_page" class="ui-btn ui-icon-home ui-btn-icon-top">길찾기</a></li>
+    		<li><a href="#otp_page" class="ui-btn ui-icon-search ui-btn-icon-top ui-btn-active ui-state-persist">OTP</a></li>
+    		<li><a href="#map_page" class="ui-btn ui-icon-info ui-btn-icon-top">지도</a></li>
+    		<li><a href="#setting_page"  class="ui-btn ui-icon-gear ui-btn-icon-top">setting</a></li>
+    	</ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="setting_page">
+  <div data-role="header">
+    <h1>setting</h1>
+  </div>
+  <div data-role="content">내용</div>
+  <div data-role="footer" data-theme="a" data-position="fixed">
+    <div data-role="navbar">
+    	<ul>
+    		<li><a href="#search_page" class="ui-btn ui-icon-home ui-btn-icon-top">길찾기</a></li>
+    		<li><a href="#otp_page" class="ui-btn ui-icon-search ui-btn-icon-top">OTP</a></li>
+    		<li><a href="#map_page" class="ui-btn ui-icon-info ui-btn-icon-top">지도</a></li>
+    		<li><a href="#setting_page"  class="ui-btn ui-icon-gear ui-btn-icon-top ui-btn-active ui-state-persist">setting</a></li>
+    	</ul>
+    </div>
+  </div> 
+</div>
+<div data-role="page" id="map_page" class = "map_style">
+<div data-role="header" data-position="fixed" data-tap-toggle="false">
+	<h1> 병원 지도</h1>
+</div>
+		<div data-role="content" id = "map_canvas" class = "map_style">
+		</div>
+		  <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+    	<ul>
+    		<li><a href="#search_page" class="ui-btn ui-icon-home ui-btn-icon-top">길찾기</a></li>
+    		<li><a href="#otp_page" class="ui-btn ui-icon-search ui-btn-icon-top">OTP</a></li>
+    		<li><a href="#map_page" class="ui-btn ui-icon-info ui-btn-icon-top ui-btn-active ui-state-persist">지도</a></li>
+    		<li><a href="#setting_page"  class="ui-btn ui-icon-gear ui-btn-icon-top">setting</a></li>
+    	</ul>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type = "text/javascript">
+$(document).ready(function(){
+	$("#login").click(function(){
+		if($("#username").val() == ""){
+			$(".input").addClass("error");
+			//$("#username").css({"border":"2px solid red"})
+		}
+	})
+	$(".input").click(function(){
+		$(".input").removeClass("error");
+	
+	})
+})
+</script>
+</body>
+</html>

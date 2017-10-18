@@ -1,43 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ page import="java.util.*" %>
 <%@ page import="jsp.member.model.MemberDAO" %>
 <%@ page import="jsp.member.model.GetIMEI" %>
-<html>
-<head>
-	<title>·Î±×ÀÎ Ã³¸® JSP</title>
-</head>
-<body>
-	<%
-		// ÀÎÄÚµù Ã³¸®
-		request.setCharacterEncoding("euc-kr"); 
-		GetIMEI gi = GetIMEI.getInstance();
-		String imei = "12 345678 111111 0";//ÀÓ½Ã imei
-		// ·Î±×ÀÎ È­¸é¿¡ ÀÔ·ÂµÈ ¹æ¹®ÀÚ ¹øÈ£¸¦ °¡Á®¿Â´Ù
-		String id= request.getParameter("id");
-		// DB¿¡¼­ ¹æ¹®ÀÚ¹øÈ£, imei È®ÀÎ
+<%request.setCharacterEncoding("utf-8"); %>
+<%response.setContentType("text/html; charset=utf-8"); %>
+
+ 	<%
+		// ì¸ì½”ë”© ì²˜ë¦¬
+		request.setCharacterEncoding("utf-8");
+	
+		// ë¡œê·¸ì¸ í™”ë©´ì— ìž…ë ¥ëœ ë°©ë¬¸ìž ë²ˆí˜¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤
+		String id = request.getParameter("mem_id");
+		String pw = request.getParameter("mem_pw");
+		// DBì—ì„œ ë°©ë¬¸ìžë²ˆí˜¸, ë¹„ë°€ë²ˆí˜¸ í™•ì¸
 		MemberDAO dao = MemberDAO.getInstance();
-		int check = dao.loginCheck(id, imei);
 		
-		// URL ¹× ·Î±×ÀÎ°ü·Ã Àü´Þ ¸Þ½ÃÁö
+		int check = dao.loginCheck(id, pw);
+		// URL ë° ë¡œê·¸ì¸ê´€ë ¨ ì „ë‹¬ ë©”ì‹œì§€
 		String msg = "";
 		
-		if(check == 1)	// ·Î±×ÀÎ ¼º°ø
+		if(check == 1)	// ë¡œê·¸ì¸ ì„±ê³µ
 		{ 
-			// ¼¼¼Ç¿¡ ÇöÀç ¾ÆÀÌµð ¼¼ÆÃ
+			// ì„¸ì…˜ì— í˜„ìž¬ ì•„ì´ë”” ì„¸íŒ…
 			session.setAttribute("sessionID", id);
-			msg = "../../MainForm.jsp";
+			out.print("success");
 		}
-		else if(check == 0)//¹æ¹®ÀÚ¹øÈ£´Â ÀÖÀ¸³ª imei°¡ Æ²¸°°æ¿ì
+		else if(check == 0) // ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦´ ê²½ìš°
 		{
-			msg = "../view/LoginForm.jsp?msg=0";	
+			out.print("wrong pw");	
 		}
-		else	// ¹æ¹®ÀÚ¹øÈ£°¡ Æ²¸±°æ¿ì
+		else	// ì•„ì´ë””ê°€ í‹€ë¦´ ê²½ìš°
 		{
-			msg = "../view/LoginForm.jsp?msg=-1";
+			out.print("wrong id");
 		}
 		 
-		// sendRedirect(String URL) : ÇØ´ç URL·Î ÀÌµ¿
+		// sendRedirect(String URL) : í•´ë‹¹ URLë¡œ ì´ë™
 		response.sendRedirect(msg);
 	%>
-</body>
-</html>
