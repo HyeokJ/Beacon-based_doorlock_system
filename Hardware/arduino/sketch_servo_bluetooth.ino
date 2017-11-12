@@ -15,14 +15,14 @@ void setup() {
   delay(100);
   BTSerial.begin(9600);
   servo.attach(servoPin);
-  servo.write(90); // 문 초기화
+  servo.write(90); // 문 초기화 (닫긴 상태)
 }
 
 void loop() {
   
    if(BTSerial.available()) 
   {
-    char toSend = (char)BTSerial.read();
+    char toSend = (char)BTSerial.read(); // 스트링 받아옴
 
     if (toSend != -5)
     {
