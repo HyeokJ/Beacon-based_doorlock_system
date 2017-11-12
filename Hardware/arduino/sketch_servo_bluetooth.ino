@@ -15,12 +15,12 @@ void setup() {
   delay(100);
   BTSerial.begin(9600);
   servo.attach(servoPin);
-  servo.write(0); // 문 초기화
+  servo.write(90); // 문 초기화
 }
 
 void loop() {
   
-  if(BTSerial.available()) 
+   if(BTSerial.available()) 
   {
     char toSend = (char)BTSerial.read();
 
@@ -28,16 +28,18 @@ void loop() {
     {
       switch(toSend)
       {
-        case 'o' : // 문이 열릴 경우
-        servo.write(0); 
-        delay(10);
+        case 'o' : // 문을 연 다음에 8초 후 다시 닫음
+        servo.write(0);  
+        delay(8000);
+        servo.write(90);
         break;
 
-        case 'c': // 문이 닫힐 경우
+        case 'c': // 문을 닫음, 필요하지 않을 수 있음
         servo.write(90); 
-        delay(10);
+        delay(100);
         break;
       }
     }
   }
 }
+    
