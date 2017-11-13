@@ -15,14 +15,14 @@ void setup() {
   delay(100);
   BTSerial.begin(9600);
   servo.attach(servoPin);
-  servo.write(90); // 문 초기화 (닫긴 상태)
+  servo.write(85); // 문 초기화 (90일 때 문이 직각을 이루지 않음)
 }
 
 void loop() {
   
    if(BTSerial.available()) 
   {
-    char toSend = (char)BTSerial.read(); // 스트링 받아옴
+    char toSend = (char)BTSerial.read();
 
     if (toSend != -5)
     {
@@ -31,11 +31,11 @@ void loop() {
         case 'o' : // 문을 연 다음에 8초 후 다시 닫음
         servo.write(0);  
         delay(8000);
-        servo.write(90);
+        servo.write(85);
         break;
 
         case 'c': // 문을 닫음, 필요하지 않을 수 있음
-        servo.write(90); 
+        servo.write(85); 
         delay(100);
         break;
       }
